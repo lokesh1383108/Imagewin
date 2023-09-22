@@ -24,10 +24,7 @@ def loginpage(request):
              return redirect('/login')
         else:
             login(request,user)
-            return redirect('/home')
-
-        
-             
+            return redirect('/homePage')
     return render(request,"home/login.html")
 
 def signuppage(request):
@@ -52,7 +49,17 @@ def signuppage(request):
     return render(request,"home/signup.html")
 
 def homepage(request):
-    return render(request,'home/home.html')
-
+    return render(request,'home/homePage.html')
+                                                                   
 def upload_image(request):
-    return render(request,'home/upload.html')
+    if request.method=="POST":
+        data = request.POST
+        location_name = request.POST.get('location_name')
+        location_image = request.FILES.get('location_image')
+
+        user= uploadimage.objects.create(
+            location_name = location_name,
+            location_image = location_image
+        )
+
+    return render(request,"home/upload.html")

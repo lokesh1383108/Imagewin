@@ -8,8 +8,9 @@
 </head>
 <body>
     <div class="h">
+        {%csrf_token%}
         <button onclick="window.location='login/' " type="button" class="btn btn-primary mx-2">Edit Profile</button>
-        <button onclick="window.location='upload_image/' " type="button" class="btn btn-secondary">Upload Image</button>
+        <button onclick="location.href='uploadimage/' " type="button" class="btn btn-secondary">Upload Image</button>
     </div>
 </body>
 </html>

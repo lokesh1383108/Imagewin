@@ -7,6 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Upload Image</h1>
+    <div class ="container mt-5">
+        <form class="col-6  mx-auto card" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+                <div class="my-2" ><h2>Upload Image</h2></div>
+                <div class="mt-2">
+                  <label for="recipe_names" class = "form-label">Location Name</label>
+                  <input name="location_name" type="text" class="form-control" placeholder="Enter Location of the Image">      <!--  it take recipe name as input -->
+                </div>
+                <div class="mt-2 mb-2">
+                  <label for="recipe_images">Recipe Image</label>
+                  <input name="location_image" type="file" class="form-control" >
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Add Recipe</button>
+              </form>
+            </div>
 </body>
 </html>
