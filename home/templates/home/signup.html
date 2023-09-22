@@ -11,6 +11,13 @@
 <form class="col-6  mx-auto card" method="post" >
   {% csrf_token %}
         <div class="my-2" ><h2>Sign Up</h2></div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+{% endif %}
         <div class="mt-2">
           <label for="user_names" class = "form-label">Name</label>
           <input name="first_name" type="text" class="form-control" placeholder="Enter Your Name">      
