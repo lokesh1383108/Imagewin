@@ -9,9 +9,9 @@
 <body>
     <div class="h mt-2 row">
         {%csrf_token%}
-        <button onclick="window.location='login/' " type="button" class="btn btn-primary mx-2">Edit Profile</button>
+        <button onclick="location.href='update_user/' " type="button" class="btn btn-primary mx-2">Edit Profile</button>
         <button onclick="location.href='uploadimage/' " type="button" class="btn btn-secondary">Upload Image</button>
-        {%if user.is_authenticated%}
+        {% if user.is_authenticated%}
         <a href= "{% url 'logout' %}" class="nav-link">logout</a>
         {%endif%}
 

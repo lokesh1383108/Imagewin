@@ -51,6 +51,7 @@ def signuppage(request):
 def homepage(request):
     querySet = uploadimage.objects.all()
     context = {'image':querySet}
+    print(1)
     if request.method=="POST":
         data = request.POST
         location_name = request.POST.get('location_name')
@@ -80,3 +81,13 @@ def logout_page(request):
     logout(request)
     messages.success(request,"You are logged Out")
     return redirect('/login')
+
+def user_update(request):
+    # queryset = User.objects.all()
+    # context = {'update':queryset}
+    if request.user.is_authenticated:
+       current_user = User.objects.get(id=request.user.id)
+       print(current_user.first_name)
+       print("hh")
+       return render(request,"home/update.html")
+

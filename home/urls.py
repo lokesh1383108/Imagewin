@@ -11,7 +11,8 @@ urlpatterns = [
     path('signup/', views.signuppage, name='signup'),
     path('homePage/',views.homepage, name='homepage'),
     path('homePage/uploadimage/', views.upload_image, name='upload_image'),
-    path('logout/', views.logout_page, name='logout')
+    path('logout/', views.logout_page, name='logout'),
+    path('homePage/update_user/', views.user_update, name='user_update'),
 ]
 
 if settings.DEBUG:
