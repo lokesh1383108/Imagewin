@@ -7,10 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="h">
+    <div class="h mt-2 row">
         {%csrf_token%}
         <button onclick="window.location='login/' " type="button" class="btn btn-primary mx-2">Edit Profile</button>
         <button onclick="location.href='uploadimage/' " type="button" class="btn btn-secondary">Upload Image</button>
+        {%if user.is_authenticated%}
+        <a href= "{% url 'logout' %}" class="nav-link">logout</a>
+        {%endif%}
+
     </div>
+    <div class="mt-2 container card col-6">
+    {% for image in image%}
+    <img src="/media/{{image.location_image}}" style="height: 200px" >
+    <form>
+    <input name="guess_location_name" type="text" class="form-control col-5" placeholder="Guess the Location of the Image">  
+    <button type="submit" class="btn btn-success mt-2">Submit</button>
+    </form>
+    {%endfor%}
+</div>
 </body>
 </html>

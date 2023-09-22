@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import  User
-from django.contrib.auth import  authenticate, login
+from django.contrib.auth import  authenticate, login, logout
 from home.models import *
 from django.contrib import messages
 
@@ -49,7 +49,17 @@ def signuppage(request):
     return render(request,"home/signup.html")
 
 def homepage(request):
-    return render(request,'home/homePage.html')
+    querySet = uploadimage.objects.all()
+    context = {'image':querySet}
+    if request.method=="POST":
+        data = request.POST
+        location_name = request.POST.get('location_name')
+        if not uploadimage.objects.filter(location_name = location_name).exists():
+             messages.error(request, "wrong guess")
+
+
+
+    return render(request,'home/homePage.html',context)
                                                                    
 def upload_image(request):
     if request.method=="POST":
@@ -62,4 +72,11 @@ def upload_image(request):
             location_image = location_image
         )
 
+        return redirect('/homePage')
+    
     return render(request,"home/upload.html")
+
+def logout_page(request):
+    logout(request)
+    messages.success(request,"You are logged Out")
+    return redirect('/login')
