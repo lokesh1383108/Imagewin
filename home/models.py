@@ -5,4 +5,7 @@ from django.contrib.auth.models import User
 class uploadimage(models.Model):
     location_image=models.FileField()
     location_name = models.CharField(max_length=30)
+
+class homepages(models.Model):
+    guess_location_name = models.CharField(max_length=30)
     

@@ -51,15 +51,21 @@ def signuppage(request):
 def homepage(request):
     querySet = uploadimage.objects.all()
     context = {'image':querySet}
-    print(1)
-    if request.method=="POST":
-        data = request.POST
-        location_name = request.POST.get('location_name')
-        if not uploadimage.objects.filter(location_name = location_name).exists():
-             messages.error(request, "wrong guess")
+    guess_messages = {}
+    if request.method == "POST":
+        user_guess = request.POST.get('guess_location_name')
+        # correct_location = request.session.get('correct_location')
+        
+        print("User Guess:", user_guess)
+        for images in querySet:
+            correct_location = images.location_name
+            print("correct location: ", correct_location,"id->",images.id)
+            guess_messages[images.id] = "Correct guess!" if user_guess == correct_location else "Wrong guess, try again."
 
 
-
+        context['guess_messages'] = guess_messages
+    
+   
     return render(request,'home/homePage.html',context)
                                                                    
 def upload_image(request):
@@ -72,6 +78,8 @@ def upload_image(request):
             location_name = location_name,
             location_image = location_image
         )
+        request.session['correct_location'] = location_name
+        # print("Correct location stored:", location_name)  #debug the
 
         return redirect('/homePage')
     
@@ -83,11 +91,8 @@ def logout_page(request):
     return redirect('/login')
 
 def user_update(request):
-    # queryset = User.objects.all()
-    # context = {'update':queryset}
-    if request.user.is_authenticated:
-       current_user = User.objects.get(id=request.user.id)
-       print(current_user.first_name)
-       print("hh")
-       return render(request,"home/update.html")
+    queryset = User.objects.all()
+    context = {'up':queryset}
+    
+    return render(request,"home/update.html",context)
 

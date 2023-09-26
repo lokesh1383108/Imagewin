@@ -10,10 +10,10 @@
     <div class ="container mt-5">
 <form class="col-6  mx-auto card" method="post" >
   {% csrf_token %}
-        <div class="my-2" ><h2>update</h2></div>
+        <div class="my-2" ><h2>Update</h2></div>
         <div class="mt-2">
           <label for="user_names" class = "form-label">Name</label>
-          <input name="first_name" type="text" value="{{update.first_name}}" class="form-control" placeholder="Enter Your Name">      
+          <input name="first_name" type="text" value="{{up.first_name}}" class="form-control" placeholder="Enter Your Name">      
         </div>
           <div class="form-group mt-2">
             <label for="exampleInputPassword1">Password</label>

@@ -11,18 +11,30 @@
         {%csrf_token%}
         <button onclick="location.href='update_user/' " type="button" class="btn btn-primary mx-2">Edit Profile</button>
         <button onclick="location.href='uploadimage/' " type="button" class="btn btn-secondary">Upload Image</button>
-        {% if user.is_authenticated%}
+        {% if user.is_authenticated %}
         <a href= "{% url 'logout' %}" class="nav-link">logout</a>
         {%endif%}
 
     </div>
     <div class="mt-2 container card col-6">
-    {% for image in image%}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% for image in image %}
     <img src="/media/{{image.location_image}}" style="height: 200px" >
-    <form>
+    <form method="post">
+        {%csrf_token%}
     <input name="guess_location_name" type="text" class="form-control col-5" placeholder="Guess the Location of the Image">  
     <button type="submit" class="btn btn-success mt-2">Submit</button>
     </form>
+    {% if images.id in guess_messages %}
+            <p>{{ guess_messages.images.id }}</p>
+        {% endif %}
+    
     {%endfor%}
 </div>
 </body>
