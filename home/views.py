@@ -51,19 +51,24 @@ def signuppage(request):
 def homepage(request):
     querySet = uploadimage.objects.all()
     context = {'image':querySet}
-    guess_messages = {}
+    # guess_messages = {}
     if request.method == "POST":
         user_guess = request.POST.get('guess_location_name')
         # correct_location = request.session.get('correct_location')
-        
+        guess_correct = False
         print("User Guess:", user_guess)
         for images in querySet:
             correct_location = images.location_name
-            print("correct location: ", correct_location,"id->",images.id)
-            guess_messages[images.id] = "Correct guess!" if user_guess == correct_location else "Wrong guess, try again."
+            if user_guess == correct_location:
+                messages.success(request, "Correct guess!")
+                guess_correct = True  # Set the flag to True if the guess was correct
+                break  # Exit the loop once a correct guess is found
+        
+        # Check if the guess was incorrect for all images
+        if not guess_correct:
+            messages.error(request, "Wrong guess, try again.")
 
-
-        context['guess_messages'] = guess_messages
+              
     
    
     return render(request,'home/homePage.html',context)
